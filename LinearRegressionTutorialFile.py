@@ -28,4 +28,21 @@ X = np.array(data.drop([predict], 1))
 Y = np.array(data[predict])
 
 # Split X and Y into 4 variables
-x_train, y_train, x_test, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.1)
+x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.1)
+
+# Create a training Model
+linear = linear_model.LinearRegression()
+linear.fit(x_train, y_train)
+
+# To check the accuracy of the model, returns value of accuracy in model and is stored in acc, which is then printed
+acc = linear.score(x_test, y_test)
+print(acc)
+
+# Get the coefficients and Y intercepts on each attribute
+print("Coefficients:", linear.coef_)
+print("Intercept:", linear.intercept_)
+
+
+predictions = linear.predict(x_test)
+for x in range(len(predictions)):
+    print(predictions[x], x_test[x], y_test[x])
